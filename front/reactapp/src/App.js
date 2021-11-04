@@ -4,7 +4,10 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    fetch().then((data) => console.log(data));
+    (async () => {
+      let a = await fetch();
+      console.log(a);
+    })();
   }, []);
   return <div className='App'>test</div>;
 }

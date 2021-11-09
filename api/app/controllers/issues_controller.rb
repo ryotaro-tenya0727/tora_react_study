@@ -1,5 +1,5 @@
 class IssuesController < ApplicationController
-   def index
+  def index
     @issue = Issue.all
     render json: @issue
   end
@@ -11,7 +11,7 @@ class IssuesController < ApplicationController
 
   def update
     @issue = Issue.find(params[:id])
-    @issue.update_attributes(name: params[:name])
+    @issue.update(name: params[:name])
     render json: @issue
   end
 

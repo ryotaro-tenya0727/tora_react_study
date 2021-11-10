@@ -10,9 +10,10 @@ function App() {
   //     console.log(a);
   //   })();
   // }, []);
+
   return (
     <>
-      <Article title={'ほにたん'} content={'ウルム'} />
+      <Article title={'みこたん'} content={'ウルム'} />
     </>
   );
 }

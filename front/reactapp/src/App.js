@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 // import { fetch } from './components/Todo';
 import './App.css';
-import { Article } from './components/Todo';
+import Article from './components/Todo';
 
 function App() {
   // useEffect(() => {

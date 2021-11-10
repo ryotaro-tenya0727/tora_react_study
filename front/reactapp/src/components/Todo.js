@@ -10,7 +10,7 @@ export const fetch = () => {
     .catch((e) => console.error(e));
 };
 
-export const Article = (props) => {
+const Article = (props) => {
   console.log(props);
   return (
     <div>
@@ -19,3 +19,5 @@ export const Article = (props) => {
     </div>
   );
 };
+
+export default Article;

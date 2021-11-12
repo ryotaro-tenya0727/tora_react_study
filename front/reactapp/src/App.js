@@ -1,7 +1,7 @@
 import React from 'react';
 import defaultDataset from './dataset';
 import './assets/styles/style.css';
-import { AnswersList } from './components/index';
+import { AnswersList, Chats } from './components/index';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -21,13 +21,24 @@ export default class App extends React.Component {
     this.setState({ answers: initAnswers });
   };
 
+  initChats = () => {
+    const initDataset = this.state.dataset[this.state.currentId];
+    const chat = { text: initDataset.question, type: 'question' };
+    //必ず次の手順を踏む。setStateの中で直接chats: this.state.chats.push(chat);はNG
+    const chats = this.state.chats;
+    chats.push(chat);
+    this.setState({ chats: chats });
+  };
+
   componentDidMount() {
+    this.initChats();
     this.initAnswer();
   }
   render() {
     return (
       <section className='c-section'>
         <div className='c-box'>
+          <Chats chats={this.state.chats} />
           <AnswersList answers={this.state.answers} />
         </div>
       </section>

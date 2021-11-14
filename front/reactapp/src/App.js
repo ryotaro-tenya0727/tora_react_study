@@ -34,14 +34,20 @@ export default class App extends React.Component {
     console.log(this);
     switch (true) {
       case nextQuestionId === 'init':
-        this.displayNextQuestion(nextQuestionId);
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500);
+        break;
+      case /^https:*/.test(nextQuestionId):
+        const a = document.createElement('a');
+        a.href = nextQuestionId;
+        a.target = '_blank';
+        a.click();
         break;
       default:
         //必ず次の手順を踏む。setStateの中で直接{chats: this.state.chats.push(chat)};はNG
         const chats = this.state.chats;
         chats.push({ text: selectedAnswer, type: 'answer' });
         this.setState({ chats: chats });
-        this.displayNextQuestion(nextQuestionId);
+        setTimeout(() => this.displayNextQuestion(nextQuestionId), 500);
         break;
     }
   };
@@ -49,6 +55,13 @@ export default class App extends React.Component {
   componentDidMount() {
     const initAnswer = '';
     this.selectAnswer(initAnswer, this.state.currentId);
+  }
+
+  componentDidUpdate() {
+    const scrollArea = document.getElementById('scroll-area');
+    if (scrollArea) {
+      scrollArea.scrollTop = scrollArea.scrollHeight;
+    }
   }
   render() {
     return (

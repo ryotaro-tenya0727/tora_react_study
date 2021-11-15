@@ -19,7 +19,7 @@ const sendResponse = (
 export const addDataset = functions.https.onRequest(
   async (req: any, res: any) => {
     if (req.method !== 'POST') {
-      sendResponse(res, 405, { error: 'Invalid Request' });
+      sendResponse(res, 405, { error: 'Invalid Request　honihoni' });
     } else {
       const dataset = req.body;
       for (const key of Object.keys(dataset)) {
@@ -27,7 +27,7 @@ export const addDataset = functions.https.onRequest(
         await db.collection('questions').doc(key).set(data);
       }
       sendResponse(res, 200, {
-        message: 'Successfully added dataset! WooHoo!',
+        message: ' mikomimkomimko!',
       });
     }
   }

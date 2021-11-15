@@ -1,7 +1,8 @@
 import React from 'react';
-import defaultDataset from './dataset';
+
 import './assets/styles/style.css';
 import { AnswersList, Chats, FormDialog } from './components/index';
+import { db } from './firebase/index';
 
 export default class App extends React.Component {
   //クラスコンポーネントのthisは定義された場所で決まる。
@@ -11,7 +12,7 @@ export default class App extends React.Component {
       answers: [],
       chats: [],
       currentId: 'init',
-      dataset: defaultDataset,
+      dataset: {},
       open: false,
     };
     this.selectAnswer = this.selectAnswer.bind(this);
@@ -65,7 +66,28 @@ export default class App extends React.Component {
     this.setState({ open: false });
   };
 
+  initDataset = (dataset) => {
+    this.setState({ dataset: dataset });
+  };
+
   componentDidMount() {
+    (async () => {
+      const dataset = this.state.dataset;
+      await db
+        .collection('questions')
+        .get()
+        .then((response) => {
+          response.forEach((doc) => {
+            // console.log(doc.id);
+            const id = doc.id;
+            const data = doc.data();
+            dataset[id] = data;
+          });
+        });
+      this.initDataset(dataset);
+      console.log(dataset);
+    })();
+
     const initAnswer = '';
     this.selectAnswer(initAnswer, this.state.currentId);
   }
